@@ -19,14 +19,14 @@ const Posts: React.FC<PostsProps> = ({posts}) => {
             <h1>Posts page</h1>
             <div className="container">
                 <div className="row">
-                    {posts.map(post => {
-                        return <div
+                    {posts.map(post => (
+                        <div
                             key={post.id}
                             className="col"
                         >
                             <PostCard post={post}/>
                         </div>
-                    })}
+                    ))}
                 </div>
             </div>
         </>);
