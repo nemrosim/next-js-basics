@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app'
+import Link from 'next/link';
 import '../styles/globals.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,13 +8,15 @@ function MyApp({Component, pageProps}: AppProps) {
     return (
         <>
             <nav className="nav">
-                <a className="nav-link" href="#">Active</a>
-                <a className="nav-link" href="#">Link</a>
-                <a className="nav-link" href="#">Link</a>
-                <a
-                    className="nav-link disabled"
-                    href="#"
-                    aria-disabled="true">Disabled</a>
+                <Link href="/">
+                    <a className="nav-link">Home</a>
+                </Link>
+                <Link href="/posts">
+                    <a className="nav-link">Posts</a>
+                </Link>
+                <Link href="/about">
+                    <a className="nav-link">About</a>
+                </Link>
             </nav>
             <Component {...pageProps} />
         </>

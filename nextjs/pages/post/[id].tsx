@@ -1,7 +1,7 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { useRouter } from 'next/router'
-
-const SERVER_HOST = 'http://localhost:3001'
+import { GetServerSideProps } from "next";
+import { SERVER_HOST } from "../../constants";
 
 interface PostProps {
     post: {
@@ -11,45 +11,34 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({post}) => {
-    const router = useRouter();
-    const {id} = router.query
+    const {query} = useRouter();
 
-    return <p>Post: {id}</p>
+    return (
+        <>
+            <p>Post: {query.id}</p>
+            <h2>{post.title}</h2>
+        </>
+    );
 }
 
 /**
- * This function gets called at BUILD time
- * You can check more info about it here:
- * https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
+ * This gets called on every request
  */
-export async function getStaticPaths() {
-    const res = await fetch(`${SERVER_HOST}/posts`)
-    const posts: Array<{ id: number }> = await res.json();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const res = await fetch(`${SERVER_HOST}/post/${context.params?.id}`);
 
-    // Get the paths we want to pre-render based on posts
-    const paths = posts.map((post) => ({
-        params: {id: `${post.id}`},
-    }))
+    let post;
+    try {
+        post = await res.json();
+    } catch (e) {
+        // console.log('Error', e);
+    }
 
-    /*
-        We'll pre-render only these paths at build time.
-        { fallback: false } means other routes should 404.
-     */
-    return {paths, fallback: false}
-}
-
-/**
- * This also gets called at build time
- * @param params
- */
-export async function getStaticProps({params}: any) {
-
-    /*
-        "params" contains the post `id`.
-        If the route is like /posts/1, then params.id is 1
-     */
-    const response = await fetch(`${SERVER_HOST}/post/${params.id}`);
-    const post = await response.json();
+    if (!post) {
+        return {
+            notFound: true,
+        }
+    }
 
     return {props: {post}}
 }
