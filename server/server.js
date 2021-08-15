@@ -8,11 +8,15 @@ app.use(cors());
 const postsList = [
     {
         id: "1",
-        title: "Post 1 Title"
+        title: "Post 1 Title",
+        subTitle: 'aliquam ultrices sagittis orci a',
+        shortText: 'gravida in fermentum et sollicitudin ac orci phasellus egestas tellus',
     },
     {
         id: "2",
-        title: "Post 2 Title"
+        title: "Post 2 Title",
+        subTitle: 'volutpat commodo sed egestas egestas',
+        shortText: 'risus nec feugiat in fermentum posuere urna nec tincidunt praesent'
     },
 ];
 
