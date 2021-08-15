@@ -1,13 +1,12 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { useRouter } from 'next/router'
 import { GetServerSideProps } from "next";
 import { SERVER_HOST } from "../../constants";
+import Head from "next/head";
+import { PostDto } from "../../types";
 
 interface PostProps {
-    post: {
-        id: string;
-        title: string;
-    }
+    post: PostDto
 }
 
 const Post: React.FC<PostProps> = ({post}) => {
@@ -15,6 +14,10 @@ const Post: React.FC<PostProps> = ({post}) => {
 
     return (
         <>
+            <Head>
+                <title>{post.title}</title>
+                <meta name="description" content={post.subTitle}/>
+            </Head>
             <p>Post: {query.id}</p>
             <h2>{post.title}</h2>
         </>
