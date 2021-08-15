@@ -14,7 +14,10 @@ const Posts: React.FC<PostsProps> = ({posts}) => {
         <>
             <Head>
                 <title>NextJS. Posts page</title>
-                <meta name="description" content="Posts page description"/>
+                <meta
+                    name="description"
+                    content="Posts page description"
+                />
             </Head>
             <h1>Posts page</h1>
             <div className="container">
