@@ -18,7 +18,9 @@ function MyApp({Component, pageProps}: AppProps) {
                     <a className="nav-link">About</a>
                 </Link>
             </nav>
-            <Component {...pageProps} />
+            <div className="container">
+                <Component {...pageProps} />
+            </div>
         </>
     );
 }
